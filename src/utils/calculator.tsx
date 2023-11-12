@@ -22,11 +22,35 @@ export const performPercentOperation = (num: number | null): number | null => {
   return num / 100;
 };
 
+export const performPositiveOrNegativeOperation = (num: number | null): string | null => {
+  if (num === null) { return null; }
+  if (num<0){
+    return String(Math.abs(num))
+  }
+  else {
+    return '-' + String(num)}
+}
+
 export const onButtonPressed = (text: string,
                                 currentInput: string,
                                 previousInput: string | null,
                                 operation: string | null) => {
   switch (text) {
+    // AC operation
+    case 'AC':
+      if(currentInput || previousInput || operation) {
+        return { operation: null, previousInput: null, currentInput: ''};
+      }
+      return { operation, previousInput, currentInput}
+    
+    // +/- operation
+    case '+/-':
+      if (currentInput) {
+        const result = performPositiveOrNegativeOperation(Number(currentInput));
+        return { operation, previousInput, currentInput: String(result) }
+      }
+      return { operation, previousInput, currentInput }
+
     // Basic operations
     case '+':
       if (operation && previousInput) {
