@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 
 import Row from './components/Row';
 import Button from './components/Button';
+import Tab from './components/Tab';
 import { onButtonPressed } from './utils/calculator';
 import { NavigationContainer, RouteProp } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -12,7 +13,7 @@ const Stack = createNativeStackNavigator();
 // Define the ParamList for your navigator
 type RootStackParamList = {
   CalculatorApp: undefined;
-  Converter: undefined;
+  ConverterApp: undefined;
 };
 
 type CalculatorAppProps = {
@@ -20,20 +21,21 @@ type CalculatorAppProps = {
 };
 
 type ConverterProps = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Converter'>;
+  navigation: NativeStackNavigationProp<RootStackParamList, 'ConverterApp'>;
 };
 
-const Appp = () => {
+const App = () => {
   return (
     <NavigationContainer >
       <Stack.Navigator>
         <Stack.Screen component={CalculatorApp} name='CalculatorApp' options={{ headerShown: false }} />
-        <Stack.Screen component={Converter} name='Converter' options={{ headerShown: false }} />
+        <Stack.Screen component={ConverterApp} name='ConverterApp' options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 const CalculatorApp = ({ navigation }) => {
+  const [screen, setScreen] = useState<boolean>(false);
   const [currentInput, setCurrentInput] = useState("");
   const [previousInput, setPreviousInput] = useState(null);
   const [operation, setOperation] = useState(null);
@@ -47,13 +49,11 @@ const CalculatorApp = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.buttonChange}>
-        <Row>
-          <Button theme="buttonChangee" text="Converter" onPress={() => navigation.navigate('Converter')} />
-          <Button theme="buttonChangee" text="Calculator" onPress={() => navigation.navigate('CalculatorApp')} />
-        </Row>
-      </View>
       <View style={styles.displayContainer}>
+        <Row>
+          <Tab type="first" text="Calculator" color={!screen} onPress={() => {navigation.navigate('Calculator'); setScreen(oldScreen => oldScreen ? !oldScreen : oldScreen);}} />
+          <Tab type="last" text="Converter" color={screen} onPress={() => {navigation.navigate('Converter'); setScreen(oldScreen => oldScreen ? oldScreen : !oldScreen);}} />
+        </Row>
         <Text style={styles.value}>{currentInput}</Text>
       </View>
       <View style={styles.semiDisplayContainer}>
@@ -102,22 +102,22 @@ const styles = StyleSheet.create({
   },
 
   displayContainer: {
-    flex: 2,
+    flex: 3,
     justifyContent: 'flex-end',
   },
 
   semiDisplayContainer: {
-    flex: 0.8,
+    flex: 1,
     backgroundColor: '#20252E',
     justifyContent: 'center',
   },
 
   buttonContainer: {
-    flex: 5,
+    flex: 6,
     marginBottom: '5%',
   },
   buttonChange: {
-    flex: 0.5,
+    flex: 1,
     backgroundColor: '#20252E',
   },
   value: {
@@ -134,9 +134,8 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 });
-const Converter = ({ navigation }) => {
 
-
+const ConverterApp = ({ navigation }) => {
   const handleButtonPress = (text: string) => {
   };
 
@@ -144,8 +143,8 @@ const Converter = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.buttonChange}>
         <Row>
-          <Button theme="buttonChangee" text="Converter" onPress={() => navigation.navigate('Converter')} />
-          <Button theme="buttonChangee" text="Calculator" onPress={() => navigation.navigate('CalculatorApp')} />
+          <Button theme="buttonChange" text="Converter" onPress={() => navigation.navigate('ConverterApp')} />
+          <Button theme="buttonChange" text="Calculator" onPress={() => navigation.navigate('CalculatorApp')} />
         </Row>
       </View>
       <View style={styles.displayContainer}>
@@ -161,4 +160,4 @@ const Converter = ({ navigation }) => {
   );
 };
 
-export default Appp;
+export default App;
