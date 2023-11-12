@@ -67,4 +67,3 @@ yarn-error.log
 
 # prettier ignore file
 .prettierignore
-.prettierrc.js
