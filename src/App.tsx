@@ -4,8 +4,36 @@ import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import Row from './components/Row';
 import Button from './components/Button';
 import { onButtonPressed } from './utils/calculator';
+import { NavigationContainer, RouteProp } from '@react-navigation/native';
+import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-const CalculatorApp = () => {
+const Stack = createNativeStackNavigator();
+
+// Define the ParamList for your navigator
+type RootStackParamList = {
+  CalculatorApp: undefined;
+  Converter: undefined;
+};
+
+type CalculatorAppProps = {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'CalculatorApp'>;
+};
+
+type ConverterProps = {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'Converter'>;
+};
+
+const Appp = () => {
+  return (
+    <NavigationContainer >
+      <Stack.Navigator>
+        <Stack.Screen component={CalculatorApp} name='CalculatorApp' options={{ headerShown: false }} />
+        <Stack.Screen component={Converter} name='Converter' options={{ headerShown: false }} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+const CalculatorApp = ({ navigation }) => {
   const [currentInput, setCurrentInput] = useState("");
   const [previousInput, setPreviousInput] = useState(null);
   const [operation, setOperation] = useState(null);
@@ -19,6 +47,12 @@ const CalculatorApp = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.buttonChange}>
+        <Row>
+          <Button theme="buttonChangee" text="Converter" onPress={() => navigation.navigate('Converter')} />
+          <Button theme="buttonChangee" text="Calculator" onPress={() => navigation.navigate('CalculatorApp')} />
+        </Row>
+      </View>
       <View style={styles.displayContainer}>
         <Text style={styles.value}>{currentInput}</Text>
       </View>
@@ -68,24 +102,27 @@ const styles = StyleSheet.create({
   },
 
   displayContainer: {
-    flex: 3,
+    flex: 2,
     justifyContent: 'flex-end',
   },
 
   semiDisplayContainer: {
-    flex: 1,
+    flex: 0.8,
     backgroundColor: '#20252E',
     justifyContent: 'center',
   },
 
   buttonContainer: {
-    flex: 6,
+    flex: 5,
     marginBottom: '5%',
   },
-
+  buttonChange: {
+    flex: 0.5,
+    backgroundColor: '#20252E',
+  },
   value: {
     color: '#fff',
-    fontSize: 84,
+    fontSize: 60,
     textAlign: 'right',
   },
 
@@ -97,5 +134,31 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 });
+const Converter = ({ navigation }) => {
 
-export default CalculatorApp;
+
+  const handleButtonPress = (text: string) => {
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.buttonChange}>
+        <Row>
+          <Button theme="buttonChangee" text="Converter" onPress={() => navigation.navigate('Converter')} />
+          <Button theme="buttonChangee" text="Calculator" onPress={() => navigation.navigate('CalculatorApp')} />
+        </Row>
+      </View>
+      <View style={styles.displayContainer}>
+
+      </View>
+      <View style={styles.semiDisplayContainer}>
+
+      </View>
+      <SafeAreaView style={styles.buttonContainer}>
+
+      </SafeAreaView>
+    </View>
+  );
+};
+
+export default Appp;
