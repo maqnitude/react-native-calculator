@@ -57,7 +57,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ({ text, onPress, size, theme }) => {
+interface ButtonProps {
+  text: string;
+  onPress: () => void;
+  size?: string;
+  theme?: string;
+}
+
+const Button: React.FC<ButtonProps> = ({ text, onPress, size, theme }) => {
   const buttonStyles = [styles.button];
   if (size === 'double') {
     buttonStyles.push(styles.buttonDouble);
@@ -90,3 +97,5 @@ export default ({ text, onPress, size, theme }) => {
     </TouchableOpacity>
   );
 };
+
+export default Button;
