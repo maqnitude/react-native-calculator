@@ -16,26 +16,33 @@ type RootStackParamList = {
   ConverterApp: undefined;
 };
 
-type CalculatorAppProps = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'CalculatorApp'>;
-};
+// type CalculatorAppProps = {
+//   navigation: NativeStackNavigationProp<RootStackParamList, 'CalculatorApp'>;
+// };
 
-type ConverterProps = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'ConverterApp'>;
-};
+// type ConverterProps = {
+//   navigation: NativeStackNavigationProp<RootStackParamList, 'ConverterApp'>;
+// };
 
 const App = () => {
+  const [screen, setScreen] = useState<boolean>(false);
+
   return (
     <NavigationContainer >
       <Stack.Navigator>
-        <Stack.Screen component={CalculatorApp} name='CalculatorApp' options={{ headerShown: false }} />
-        <Stack.Screen component={ConverterApp} name='ConverterApp' options={{ headerShown: false }} />
+        <Stack.Screen name='CalculatorApp' options={{ headerShown: false }}>
+          {(props) => <CalculatorApp {...props} screen={screen} setScreen={setScreen} />}
+        </Stack.Screen>
+        <Stack.Screen name='ConverterApp' options={{ headerShown: false }}>
+          {(props) => <ConverterApp {...props} screen={screen} setScreen={setScreen} />}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
-const CalculatorApp = ({ navigation }) => {
-  const [screen, setScreen] = useState<boolean>(false);
+};
+
+
+const CalculatorApp = ({ navigation, screen, setScreen }) => {
   const [currentInput, setCurrentInput] = useState("");
   const [previousInput, setPreviousInput] = useState(null);
   const [operation, setOperation] = useState(null);
@@ -51,8 +58,8 @@ const CalculatorApp = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.displayContainer}>
         <Row>
-          <Tab type="first" text="Calculator" color={!screen} onPress={() => {navigation.navigate('Calculator'); setScreen(oldScreen => oldScreen ? !oldScreen : oldScreen);}} />
-          <Tab type="last" text="Converter" color={screen} onPress={() => {navigation.navigate('Converter'); setScreen(oldScreen => oldScreen ? oldScreen : !oldScreen);}} />
+          <Tab type="first" text="Calculator" color={!screen} onPress={() => {navigation.navigate('CalculatorApp'); setScreen(oldScreen => oldScreen ? !oldScreen : oldScreen);}} />
+          <Tab type="last" text="Converter" color={screen} onPress={() => {navigation.navigate('ConverterApp'); setScreen(oldScreen => oldScreen ? oldScreen : !oldScreen);}} />
         </Row>
         <Text style={styles.value}>{currentInput}</Text>
       </View>
@@ -94,6 +101,25 @@ const CalculatorApp = ({ navigation }) => {
   );
 };
 
+const ConverterApp = ({ navigation, screen, setScreen }) => {
+  const handleButtonPress = (text: string) => {};
+
+  return (
+    <View style={styles.container}>
+      <Row>
+        <Tab type="first" text="Calculator" color={!screen} onPress={() => {navigation.navigate('CalculatorApp'); setScreen(oldScreen => oldScreen ? !oldScreen : oldScreen);}} />
+        <Tab type="last" text="Converter" color={screen} onPress={() => {navigation.navigate('ConverterApp'); setScreen(oldScreen => oldScreen ? oldScreen : !oldScreen);}} />
+      </Row>
+      <View style={styles.displayContainer}>
+
+      </View>
+      <SafeAreaView style={styles.buttonContainer}>
+
+      </SafeAreaView>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -116,13 +142,10 @@ const styles = StyleSheet.create({
     flex: 6,
     marginBottom: '5%',
   },
-  buttonChange: {
-    flex: 1,
-    backgroundColor: '#20252E',
-  },
+
   value: {
     color: '#fff',
-    fontSize: 60,
+    fontSize: 94,
     textAlign: 'right',
   },
 
@@ -134,30 +157,5 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 });
-
-const ConverterApp = ({ navigation }) => {
-  const handleButtonPress = (text: string) => {
-  };
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.buttonChange}>
-        <Row>
-          <Button theme="buttonChange" text="Converter" onPress={() => navigation.navigate('ConverterApp')} />
-          <Button theme="buttonChange" text="Calculator" onPress={() => navigation.navigate('CalculatorApp')} />
-        </Row>
-      </View>
-      <View style={styles.displayContainer}>
-
-      </View>
-      <View style={styles.semiDisplayContainer}>
-
-      </View>
-      <SafeAreaView style={styles.buttonContainer}>
-
-      </SafeAreaView>
-    </View>
-  );
-};
 
 export default App;
