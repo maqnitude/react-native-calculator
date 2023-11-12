@@ -20,7 +20,7 @@ export const performOperation = (num1: number, num2: number, operation: string):
 export const performPercentOperation = (num: number | null): number | null => {
   if (num === null) { return null; }
   return num / 100;
-}
+};
 
 export const onButtonPressed = (text: string,
                                 currentInput: string,
@@ -31,28 +31,28 @@ export const onButtonPressed = (text: string,
     case '+':
       if (operation && previousInput) {
         const result = performOperation(Number(previousInput), Number(currentInput), operation);
-        return { operation: '+', previousInput: String(result), currentInput: '' }
+        return { operation: '+', previousInput: String(result), currentInput: '' };
       }
       return { operation: '+', previousInput: currentInput, currentInput: '' };
 
     case '-':
       if (operation && previousInput) {
         const result = performOperation(Number(previousInput), Number(currentInput), operation);
-        return { operation: '-', previousInput: String(result), currentInput: '' }
+        return { operation: '-', previousInput: String(result), currentInput: '' };
       }
       return { operation: '-', previousInput: currentInput, currentInput: '' };
 
     case '*':
       if (operation && previousInput) {
         const result = performOperation(Number(previousInput), Number(currentInput), operation);
-        return { operation: '*', previousInput: String(result), currentInput: '' }
+        return { operation: '*', previousInput: String(result), currentInput: '' };
       }
       return { operation: '*', previousInput: currentInput, currentInput: '' };
 
     case '/':
       if (operation && previousInput) {
         const result = performOperation(Number(previousInput), Number(currentInput), operation);
-        return { operation: '/', previousInput: String(result), currentInput: '' }
+        return { operation: '/', previousInput: String(result), currentInput: '' };
       }
       return { operation: '/', previousInput: currentInput, currentInput: '' };
 
@@ -67,9 +67,9 @@ export const onButtonPressed = (text: string,
     case '%':
       if (currentInput) {
         const result = performPercentOperation(Number(currentInput));
-        return { operation, previousInput, currentInput: String(result) }
+        return { operation, previousInput, currentInput: String(result) };
       }
-      return { operation, previousInput, currentInput }
+      return { operation, previousInput, currentInput };
 
     default:
       return { operation, previousInput, currentInput: currentInput + text };
