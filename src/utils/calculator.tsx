@@ -39,6 +39,10 @@ export const onButtonPressed = (text: string,
     // . operation
     case '.':
       if (currentInput.indexOf('.') === -1) {
+        if (!currentInput)
+        {
+          return { operation, previousInput, currentInput: currentInput + '0.' }
+        }
         return { operation, previousInput, currentInput: currentInput + '.' }
       }
       return { operation, previousInput, currentInput }
