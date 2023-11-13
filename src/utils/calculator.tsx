@@ -36,55 +36,79 @@ export const onButtonPressed = (text: string,
                                 previousInput: string | null,
                                 operation: string | null) => {
   switch (text) {
-    // AC operation
+    // AC (all clear) operation
     case 'AC':
-      if(currentInput || previousInput || operation) {
+      if (currentInput || previousInput || operation) {
         return { operation: null, previousInput: null, currentInput: ''};
       }
-      return { operation, previousInput, currentInput}
+
+      return { operation, previousInput, currentInput }
     
-    // +/- operation
+    // Positive/negative conversion operation
     case '+/-':
-      if (currentInput) {
+      if (currentInput !== '') {
         const result = performPositiveOrNegativeOperation(Number(currentInput));
         return { operation, previousInput, currentInput: String(result) }
       }
+
       return { operation, previousInput, currentInput }
 
     // Basic operations
     case '+':
-      if (operation && previousInput) {
+      if (operation && currentInput && previousInput) {
         const result = performOperation(Number(previousInput), Number(currentInput), operation);
         return { operation: '+', previousInput: String(result), currentInput: '' };
       }
-      return { operation: '+', previousInput: currentInput, currentInput: '' };
+
+      if (currentInput) {
+        return { operation: '+', previousInput: currentInput, currentInput: '' };
+      }
+
+      return { operation, previousInput, currentInput };
 
     case '-':
-      if (operation && previousInput) {
+      if (operation && currentInput && previousInput) {
         const result = performOperation(Number(previousInput), Number(currentInput), operation);
         return { operation: '-', previousInput: String(result), currentInput: '' };
       }
-      return { operation: '-', previousInput: currentInput, currentInput: '' };
+
+      if (currentInput) {
+        return { operation: '-', previousInput: currentInput, currentInput: '' };
+      }
+
+      return { operation, previousInput, currentInput };
 
     case '*':
-      if (operation && previousInput) {
+      if (operation && currentInput && previousInput) {
         const result = performOperation(Number(previousInput), Number(currentInput), operation);
         return { operation: '*', previousInput: String(result), currentInput: '' };
       }
-      return { operation: '*', previousInput: currentInput, currentInput: '' };
+
+      if (currentInput) {
+        return { operation: '*', previousInput: currentInput, currentInput: '' };
+      }
+
+      return { operation, previousInput, currentInput };
 
     case '/':
-      if (operation && previousInput) {
+      if (operation && currentInput && previousInput) {
         const result = performOperation(Number(previousInput), Number(currentInput), operation);
         return { operation: '/', previousInput: String(result), currentInput: '' };
       }
-      return { operation: '/', previousInput: currentInput, currentInput: '' };
 
+      if (currentInput) {
+        return { operation: '/', previousInput: currentInput, currentInput: '' };
+      }
+
+      return { operation, previousInput, currentInput };
+    
+    // Equal "=" button
     case '=':
-      if (operation && previousInput) {
+      if (operation && currentInput && previousInput) {
         const result = performOperation(Number(previousInput), Number(currentInput), operation);
         return { operation: null, previousInput: null, currentInput: String(result) };
       }
+
       return { operation, previousInput, currentInput };
 
     // Logic for '%'
@@ -93,6 +117,7 @@ export const onButtonPressed = (text: string,
         const result = performPercentOperation(Number(currentInput));
         return { operation, previousInput, currentInput: String(result) };
       }
+
       return { operation, previousInput, currentInput };
 
     default:
