@@ -24,12 +24,13 @@ export const performPercentOperation = (num: number | null): number | null => {
 
 export const performPositiveOrNegativeOperation = (num: number | null): string | null => {
   if (num === null) { return null; }
-  if (num<0){
-    return String(Math.abs(num))
+  if (num < 0){
+    return String(Math.abs(num));
   }
   else {
-    return '-' + String(num)}
-}
+    return '-' + String(num);
+  }
+};
 
 export const onButtonPressed = (text: string,
                                 currentInput: string,
@@ -42,8 +43,8 @@ export const onButtonPressed = (text: string,
         return { operation: null, previousInput: null, currentInput: ''};
       }
 
-      return { operation, previousInput, currentInput }
-    
+      return { operation, previousInput, currentInput };
+
     // Positive/negative conversion operation
     case '+/-':
       if (currentInput !== '') {
@@ -51,7 +52,7 @@ export const onButtonPressed = (text: string,
         return { operation, previousInput, currentInput: String(result) }
       }
 
-      return { operation, previousInput, currentInput }
+      return { operation, previousInput, currentInput };
 
     // Basic operations
     case '+':

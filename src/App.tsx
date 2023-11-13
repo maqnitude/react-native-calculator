@@ -16,13 +16,17 @@ type RootStackParamList = {
   ConverterApp: undefined;
 };
 
-// type CalculatorAppProps = {
-//   navigation: NativeStackNavigationProp<RootStackParamList, 'CalculatorApp'>;
-// };
+type CalculatorAppProps = {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'CalculatorApp'>;
+  screen: boolean;
+  setScreen: () => {};
+};
 
-// type ConverterProps = {
-//   navigation: NativeStackNavigationProp<RootStackParamList, 'ConverterApp'>;
-// };
+type ConverterAppProps = {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'ConverterApp'>;
+  screen: boolean;
+  setScreen: () => {};
+};
 
 const App = () => {
   const [screen, setScreen] = useState<boolean>(false);
@@ -30,11 +34,11 @@ const App = () => {
   return (
     <NavigationContainer >
       <Stack.Navigator>
-        <Stack.Screen name='CalculatorApp' options={{ headerShown: false }}>
-          {(props) => <CalculatorApp {...props} screen={screen} setScreen={setScreen} />}
+        <Stack.Screen name="CalculatorApp" options={{ headerShown: false }}>
+          {(props) => <CalculatorApp {...props} screen={screen} setScreen={() => setScreen} />}
         </Stack.Screen>
-        <Stack.Screen name='ConverterApp' options={{ headerShown: false }}>
-          {(props) => <ConverterApp {...props} screen={screen} setScreen={setScreen} />}
+        <Stack.Screen name="ConverterApp" options={{ headerShown: false }}>
+          {(props) => <ConverterApp {...props} screen={screen} setScreen={() => setScreen} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
@@ -42,8 +46,8 @@ const App = () => {
 };
 
 
-const CalculatorApp = ({ navigation, screen, setScreen }) => {
-  const [currentInput, setCurrentInput] = useState("");
+const CalculatorApp = ({ navigation, screen, setScreen }: CalculatorAppProps) => {
+  const [currentInput, setCurrentInput] = useState('');
   const [previousInput, setPreviousInput] = useState(null);
   const [operation, setOperation] = useState(null);
 
@@ -101,7 +105,7 @@ const CalculatorApp = ({ navigation, screen, setScreen }) => {
   );
 };
 
-const ConverterApp = ({ navigation, screen, setScreen }) => {
+const ConverterApp = ({ navigation, screen, setScreen }: ConverterAppProps) => {
   const handleButtonPress = (text: string) => {};
 
   return (
