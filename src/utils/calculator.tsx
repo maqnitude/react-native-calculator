@@ -37,6 +37,18 @@ export const onButtonPressed = (text: string,
                                 previousInput: string | null,
                                 operation: string | null) => {
   switch (text) {
+    // . operation
+    case '.':
+      if (currentInput.indexOf('.') === -1) {
+        if (!currentInput)
+        {
+          return { operation, previousInput, currentInput: currentInput + '0.' }
+        }
+        return { operation, previousInput, currentInput: currentInput + '.' }
+      }
+      return { operation, previousInput, currentInput }
+
+
     // AC (all clear) operation
     case 'AC':
       if (currentInput || previousInput || operation) {
@@ -109,7 +121,6 @@ export const onButtonPressed = (text: string,
         const result = performOperation(Number(previousInput), Number(currentInput), operation);
         return { operation: null, previousInput: null, currentInput: String(result) };
       }
-
       return { operation, previousInput, currentInput };
 
     // Logic for '%'
