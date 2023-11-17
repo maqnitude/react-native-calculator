@@ -1,37 +1,6 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text, Dimensions } from 'react-native';
-
-const windowHeight = Dimensions.get('window').height;
-
-const styles = StyleSheet.create({
-  text: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '700',
-  },
-  tab: {
-    flex: 1,
-    backgroundColor: '#0060E5',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: windowHeight / 20,
-  },
-  firstTab: {
-    borderTopLeftRadius: 4,
-    borderTopRightRadius: 0,
-    borderBottomRightRadius: 0,
-    borderBottomLeftRadius: 4,
-  },
-  lastTab: {
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 4,
-    borderBottomRightRadius: 4,
-    borderBottomLeftRadius: 0,
-  },
-  tabOff: {
-    backgroundColor: '#2D3440',
-  },
-});
+import { TouchableOpacity, Text } from 'react-native';
+import styles from './TabStyles';
 
 interface TabProps {
   text: string;
@@ -42,7 +11,7 @@ interface TabProps {
 
 const Tab: React.FC<TabProps> = ({ text, onPress, type, color }) => {
   const tabStyles = [styles.tab];
-  switch(type) {
+  switch (type) {
     case 'last':
       tabStyles.push(styles.lastTab);
       break;
