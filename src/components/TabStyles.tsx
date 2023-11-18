@@ -15,13 +15,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: windowHeight / 20,
   },
-  firstTab: {
+  leftTab: {
     borderTopLeftRadius: 4,
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 4,
   },
-  lastTab: {
+  midTab: {
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+    borderBottomLeftRadius: 0,
+  },
+  rightTab: {
     borderTopLeftRadius: 0,
     borderTopRightRadius: 4,
     borderBottomRightRadius: 4,

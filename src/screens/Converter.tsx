@@ -9,14 +9,15 @@ import { onButtonPressed } from '../utils/calculator';
 import styles from './Styles';
 import { ConverterAppProps } from './Types';
 
-const ConverterApp = ({ navigation, screen, setScreen }: ConverterAppProps) => {
+const ConverterApp = ({ navigation, active, setActive }: ConverterAppProps) => {
   const handleButtonPress = (text: string) => {};
 
   return (
     <View style={styles.container}>
       <Row>
-        <Tab type="first" text="Calculator" color={!screen} onPress={() => {navigation.navigate('CalculatorApp'); setScreen(oldScreen => oldScreen ? !oldScreen : oldScreen);}} />
-        <Tab type="last" text="Converter" color={screen} onPress={() => {navigation.navigate('ConverterApp'); setScreen(oldScreen => oldScreen ? oldScreen : !oldScreen);}} />
+        <Tab type="left" text="Calculator" color={!active} onPress={() => {navigation.navigate('CalculatorApp'); setActive(isActive => isActive ? isActive : !isActive);}} />
+        <Tab type="mid" text="Converter" color={active} onPress={() => {navigation.navigate('ConverterApp'); setActive(isActive => isActive ? isActive : !isActive);}} />
+        <Tab type="right" text="History" color={!active} onPress={() => {navigation.navigate('HistoryApp'); setActive(isActive => isActive ? isActive : !isActive);}} />
       </Row>
       <View style={styles.displayContainer}>
         <Text>This is the display area.</Text>
