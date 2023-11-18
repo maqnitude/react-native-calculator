@@ -4,6 +4,7 @@ import Row from '../components/Row';
 import { AlternativeAppProps } from './Types';
 import styles from './Styles';
 import Tab from '../components/Tab';
+import { updateHistory } from '../storage';
 
 const AlternativeApp = ({ navigation, active, setActive }: AlternativeAppProps) => {
   const [text, setText] = useState('');
@@ -11,7 +12,9 @@ const AlternativeApp = ({ navigation, active, setActive }: AlternativeAppProps) 
 
   const handleSubmitButton = () => {
     try {
-      setResult(eval(text));
+      const newResult = eval(text);
+      setResult(newResult);
+      updateHistory(`${text} = ${newResult}`);
     }
     catch (error) {
       setResult('Error: Unexpected result');
