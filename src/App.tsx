@@ -13,7 +13,7 @@ const App = () => {
   const [active, setActive] = useState<boolean>(true);
 
   return (
-    <NavigationContainer >
+    <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="CalculatorApp" options={{ headerShown: false }}>
           {(props) => <CalculatorApp {...props} active={active} setActive={setActive} />}

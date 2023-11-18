@@ -9,7 +9,7 @@ import styles from './Styles';
 import { ConverterAppProps } from './Types';
 
 const ConverterApp = ({ navigation, active, setActive }: ConverterAppProps) => {
-  const handleButtonPress = (text: string) => { console.log(text); };
+  const handleButtonPress = (text: string) => {};
 
   return (
     <View style={styles.container}>
