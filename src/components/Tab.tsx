@@ -12,11 +12,14 @@ interface TabProps {
 const Tab: React.FC<TabProps> = ({ text, onPress, type, color }) => {
   const tabStyles = [styles.tab];
   switch (type) {
-    case 'last':
-      tabStyles.push(styles.lastTab);
+    case 'left':
+      tabStyles.push(styles.leftTab);
       break;
-    case 'first':
-      tabStyles.push(styles.firstTab);
+    case 'mid':
+      tabStyles.push(styles.midTab);
+      break;
+    case 'right':
+      tabStyles.push(styles.rightTab);
       break;
   }
   if (!color) {

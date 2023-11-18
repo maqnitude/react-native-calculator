@@ -5,22 +5,29 @@ export type RootStackParamList = {
   CalculatorApp: undefined;
   AlternativeApp: undefined;
   ConverterApp: undefined;
+  HistoryApp: undefined;
 };
 
 export type CalculatorAppProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'CalculatorApp'>;
-  activeTab: string;
-  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+  active: boolean;
+  setActive: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type AlternativeAppProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'AlternativeApp'>;
-  activeTab: string;
-  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
-}
+  active: boolean;
+  setActive: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 export type ConverterAppProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'ConverterApp'>;
-  activeTab: string;
-  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+  active: boolean;
+  setActive: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
+export type HistoryAppProps = {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'HistoryApp'>;
+  active: boolean;
+  setActive: React.Dispatch<React.SetStateAction<boolean>>;
+}

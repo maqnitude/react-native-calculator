@@ -5,23 +5,27 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CalculatorApp from './screens/Calculator';
 import AlternativeApp from './screens/Alternative';
 import ConverterApp from './screens/Converter';
+import HistoryApp from './screens/History';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const [activeTab, setActiveTab] = useState<string>('calculator');
+  const [active, setActive] = useState<boolean>(true);
 
   return (
     <NavigationContainer >
       <Stack.Navigator>
         <Stack.Screen name="CalculatorApp" options={{ headerShown: false }}>
-          {(props) => <CalculatorApp {...props} activeTab={activeTab} setActiveTab={setActiveTab} />}
+          {(props) => <CalculatorApp {...props} active={active} setActive={setActive} />}
         </Stack.Screen>
         <Stack.Screen name="AlternativeApp" options={{ headerShown: false }}>
-          {(props) => <AlternativeApp {...props} activeTab={activeTab} setActiveTab={setActiveTab} />}
+          {(props) => <AlternativeApp {...props} active={active} setActive={setActive} />}
         </Stack.Screen>
         <Stack.Screen name="ConverterApp" options={{ headerShown: false }}>
-          {(props) => <ConverterApp {...props} activeTab={activeTab} setActiveTab={setActiveTab} />}
+          {(props) => <ConverterApp {...props} active={active} setActive={setActive} />}
+        </Stack.Screen>
+        <Stack.Screen name="HistoryApp" options={{ headerShown: false }}>
+          {(props) => <HistoryApp {...props} active={active} setActive={setActive} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

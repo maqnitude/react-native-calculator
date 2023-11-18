@@ -8,15 +8,16 @@ import Tab from '../components/Tab';
 import styles from './Styles';
 import { ConverterAppProps } from './Types';
 
-const ConverterApp = ({ navigation, activeTab, setActiveTab }: ConverterAppProps) => {
+const ConverterApp = ({ navigation, active, setActive }: ConverterAppProps) => {
   const handleButtonPress = (text: string) => { console.log(text); };
 
   return (
     <View style={styles.container}>
       <Row>
-        <Tab type="first" text="Calculator" color={activeTab === 'calculator'} onPress={() => {navigation.navigate('CalculatorApp'); setActiveTab('calculator');}} />
-        <Tab text="Alternative" color={activeTab === 'alternative'} onPress={() => {navigation.navigate('AlternativeApp'); setActiveTab('alternative');}} />
-        <Tab type="last" text="Converter" color={activeTab === 'converter'} onPress={() => {navigation.navigate('ConverterApp'); setActiveTab('converter');}} />
+        <Tab type="left" text="Calculator" color={!active} onPress={() => {navigation.navigate('CalculatorApp'); setActive(isActive => isActive ? isActive : !isActive);}} />
+        <Tab type="mid" text="Alternative" color={!active} onPress={() => {navigation.navigate('AlternativeApp'); setActive(isActive => isActive ? isActive : !isActive);}} />
+        <Tab type="mid" text="Converter" color={active} onPress={() => {navigation.navigate('ConverterApp'); setActive(isActive => isActive ? isActive : !isActive);}} />
+        <Tab type="right" text="History" color={!active} onPress={() => {navigation.navigate('HistoryApp'); setActive(isActive => isActive ? isActive : !isActive);}} />
       </Row>
       <View style={styles.displayContainer}>
         <Text style={[styles.value, {fontSize: 24}]}>This is the display area.</Text>

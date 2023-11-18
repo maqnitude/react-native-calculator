@@ -5,8 +5,7 @@ import { AlternativeAppProps } from './Types';
 import styles from './Styles';
 import Tab from '../components/Tab';
 
-
-const AlternativeApp = ({ navigation, activeTab, setActiveTab }: AlternativeAppProps) => {
+const AlternativeApp = ({ navigation, active, setActive }: AlternativeAppProps) => {
   const [text, setText] = useState('');
   const [result, setResult] = useState('');
 
@@ -23,9 +22,10 @@ const AlternativeApp = ({ navigation, activeTab, setActiveTab }: AlternativeAppP
     <View style={styles.container}>
       <View style={{flex: 1}}>
         <Row>
-          <Tab type="first" text="Calculator" color={activeTab === 'calculator'} onPress={() => {navigation.navigate('CalculatorApp'); setActiveTab('calculator');}} />
-          <Tab text="Alternative" color={activeTab === 'alternative'} onPress={() => {navigation.navigate('AlternativeApp'); setActiveTab('alternative');}} />
-          <Tab type="last" text="Converter" color={activeTab === 'converter'} onPress={() => {navigation.navigate('ConverterApp'); setActiveTab('converter');}} />
+          <Tab type="left" text="Calculator" color={!active} onPress={() => {navigation.navigate('CalculatorApp'); setActive(isActive => isActive ? isActive : !isActive);}} />
+          <Tab type="mid" text="Alternative" color={active} onPress={() => {navigation.navigate('AlternativeApp'); setActive(isActive => isActive ? isActive : !isActive);}} />
+          <Tab type="mid" text="Converter" color={!active} onPress={() => {navigation.navigate('ConverterApp'); setActive(isActive => isActive ? isActive : !isActive);}} />
+          <Tab type="right" text="History" color={!active} onPress={() => {navigation.navigate('HistoryApp'); setActive(isActive => isActive ? isActive : !isActive);}} />
         </Row>
       </View>
       <View style={{flex: 9, justifyContent: 'flex-start', margin: 5}}>
