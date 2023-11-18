@@ -5,24 +5,25 @@ import Row from '../components/Row';
 import Button from '../components/Button';
 import Tab from '../components/Tab';
 
-import { onButtonPressed } from '../utils/calculator';
 import styles from './Styles';
 import { ConverterAppProps } from './Types';
 
-const ConverterApp = ({ navigation, screen, setScreen }: ConverterAppProps) => {
-  const handleButtonPress = (text: string) => {};
+const ConverterApp = ({ navigation, activeTab, setActiveTab }: ConverterAppProps) => {
+  const handleButtonPress = (text: string) => { console.log(text); };
 
   return (
     <View style={styles.container}>
       <Row>
-        <Tab type="first" text="Calculator" color={!screen} onPress={() => {navigation.navigate('CalculatorApp'); setScreen(oldScreen => oldScreen ? !oldScreen : oldScreen);}} />
-        <Tab type="last" text="Converter" color={screen} onPress={() => {navigation.navigate('ConverterApp'); setScreen(oldScreen => oldScreen ? oldScreen : !oldScreen);}} />
+        <Tab type="first" text="Calculator" color={activeTab === 'calculator'} onPress={() => {navigation.navigate('CalculatorApp'); setActiveTab('calculator');}} />
+        <Tab text="Alternative" color={activeTab === 'alternative'} onPress={() => {navigation.navigate('AlternativeApp'); setActiveTab('alternative');}} />
+        <Tab type="last" text="Converter" color={activeTab === 'converter'} onPress={() => {navigation.navigate('ConverterApp'); setActiveTab('converter');}} />
       </Row>
       <View style={styles.displayContainer}>
-        <Text>This is the display area.</Text>
+        <Text style={[styles.value, {fontSize: 24}]}>This is the display area.</Text>
       </View>
       <SafeAreaView style={styles.buttonContainer}>
-        <Text>Here is where the buttons are displayed</Text>
+        <Text style={[styles.subContent, {fontSize: 20}]}>Below is where the buttons are displayed.</Text>
+        <Button theme="secondary" text="X" onPress={() => handleButtonPress('X')} />
       </SafeAreaView>
     </View>
   );

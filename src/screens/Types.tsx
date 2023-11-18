@@ -3,7 +3,7 @@ import React from 'react';
 
 export type RootStackParamList = {
   CalculatorApp: undefined;
-  Alternative: undefined;
+  AlternativeApp: undefined;
   ConverterApp: undefined;
 };
 
@@ -14,10 +14,10 @@ export type CalculatorAppProps = {
 };
 
 export type AlternativeAppProps = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Alternative'>;
+  navigation: NativeStackNavigationProp<RootStackParamList, 'AlternativeApp'>;
   activeTab: string;
   setActiveTab: React.Dispatch<React.SetStateAction<string>>;
-};
+}
 
 export type ConverterAppProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'ConverterApp'>;

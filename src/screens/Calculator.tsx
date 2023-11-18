@@ -9,7 +9,7 @@ import { onButtonPressed } from '../utils/calculator';
 import styles from './Styles';
 import { CalculatorAppProps } from './Types';
 
-const CalculatorApp = ({ navigation, screen, setScreen }: CalculatorAppProps) => {
+const CalculatorApp = ({ navigation, activeTab, setActiveTab }: CalculatorAppProps) => {
   const [currentInput, setCurrentInput] = useState('');
   const [previousInput, setPreviousInput] = useState(null);
   const [operation, setOperation] = useState(null);
@@ -25,8 +25,9 @@ const CalculatorApp = ({ navigation, screen, setScreen }: CalculatorAppProps) =>
     <View style={styles.container}>
       <View style={styles.displayContainer}>
         <Row>
-          <Tab type="first" text="Calculator" color={!screen} onPress={() => {navigation.navigate('CalculatorApp'); setScreen(oldScreen => oldScreen ? !oldScreen : oldScreen);}} />
-          <Tab type="last" text="Converter" color={screen} onPress={() => {navigation.navigate('ConverterApp'); setScreen(oldScreen => oldScreen ? oldScreen : !oldScreen);}} />
+          <Tab type="first" text="Calculator" color={activeTab === 'calculator'} onPress={() => {navigation.navigate('CalculatorApp'); setActiveTab('calculator');}} />
+          <Tab text="Alternative" color={activeTab === 'alternative'} onPress={() => {navigation.navigate('AlternativeApp'); setActiveTab('alternative');}} />
+          <Tab type="last" text="Converter" color={activeTab === 'converter'} onPress={() => {navigation.navigate('ConverterApp'); setActiveTab('converter');}} />
         </Row>
         <Text style={styles.value}>{currentInput}</Text>
       </View>
