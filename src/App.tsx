@@ -4,20 +4,24 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import CalculatorApp from './screens/Calculator';
 import ConverterApp from './screens/Converter';
+import HistoryApp from './screens/History';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const [screen, setScreen] = useState<boolean>(false);
+  const [active, setActive] = useState<boolean>(true);
 
   return (
-    <NavigationContainer >
+    <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="CalculatorApp" options={{ headerShown: false }}>
-          {(props) => <CalculatorApp {...props} screen={screen} setScreen={setScreen} />}
+          {(props) => <CalculatorApp {...props} active={active} setActive={setActive} />}
         </Stack.Screen>
         <Stack.Screen name="ConverterApp" options={{ headerShown: false }}>
-          {(props) => <ConverterApp {...props} screen={screen} setScreen={setScreen} />}
+          {(props) => <ConverterApp {...props} active={active} setActive={setActive} />}
+        </Stack.Screen>
+        <Stack.Screen name="HistoryApp" options={{ headerShown: false }}>
+          {(props) => <HistoryApp {...props} active={active} setActive={setActive} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
