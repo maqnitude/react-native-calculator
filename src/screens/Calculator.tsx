@@ -14,8 +14,8 @@ const CalculatorApp = ({ navigation, active, setActive }: CalculatorAppProps) =>
   const [previousInput, setPreviousInput] = useState(null);
   const [operation, setOperation] = useState(null);
 
-  const handleButtonPress = (text: string) => {
-    const result = onButtonPressed(text, currentInput, previousInput, operation);
+  const handleButtonPress = async (text: string) => {
+    const result = await onButtonPressed(text, currentInput, previousInput, operation);
     setCurrentInput(result.currentInput);
     setPreviousInput(result.previousInput);
     setOperation(result.operation);

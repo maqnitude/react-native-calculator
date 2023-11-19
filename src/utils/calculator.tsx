@@ -1,3 +1,5 @@
+import { updateHistory } from "../storage";
+
 export const performOperation = (num1: number, num2: number, operation: string): number | null => {
   switch (operation) {
     case '+':
@@ -32,7 +34,7 @@ export const performPositiveOrNegativeOperation = (num: number | null): string |
   }
 };
 
-export const onButtonPressed = (text: string,
+export const onButtonPressed = async (text: string,
                                 currentInput: string,
                                 previousInput: string | null,
                                 operation: string | null) => {
@@ -114,11 +116,13 @@ export const onButtonPressed = (text: string,
       }
 
       return { operation, previousInput, currentInput };
-    
+
     // Equal "=" button
     case '=':
       if (operation && currentInput && previousInput) {
         const result = performOperation(Number(previousInput), Number(currentInput), operation);
+        updateHistory(`${previousInput} ${operation} ${currentInput} = ${String(result)}`);
+
         return { operation: null, previousInput: null, currentInput: String(result) };
       }
       return { operation, previousInput, currentInput };
