@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 import { getData, clearData } from '../storage';
 
@@ -12,6 +12,7 @@ import { HistoryAppProps } from './Types';
 
 const HistoryApp = ({ navigation, active, setActive }: HistoryAppProps) => {
   const [history, setHistory] = useState([]);
+  const [selectedHistory, setSelectedHistory] = useState(null);
 
   useEffect(() => {
     const fetchHistory = async () => {
@@ -27,6 +28,11 @@ const HistoryApp = ({ navigation, active, setActive }: HistoryAppProps) => {
     setHistory([]);
   };
 
+  const handleSelectHistory = (calculation) => {
+    setSelectedHistory(calculation);
+    navigation.navigate('AlternativeApp', { selectedHistory: calculation });
+  };
+
   return (
     <View style={styles.container}>
       <Row>
@@ -37,7 +43,9 @@ const HistoryApp = ({ navigation, active, setActive }: HistoryAppProps) => {
       </Row>
       <View style={styles.displayContainer}>
         {history.map((calculation, index) => (
-          <Text key={index} style={{fontSize: 24, color: 'white'}}>{calculation}</Text>
+          <TouchableOpacity key={index} onPress={() => handleSelectHistory(calculation)}>
+            <Text key={index} style={{fontSize: 24, color: 'white'}}>{calculation}</Text>
+          </TouchableOpacity>
         ))}
       </View>
       <Row>
