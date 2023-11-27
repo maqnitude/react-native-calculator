@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollView, Text, View, Button } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, Text, TouchableOpacity, View, Button } from 'react-native';
 
 import { getData, clearData } from '../storage';
 
 import Row from '../components/Row';
-// import Button from '../components/Button';
 import Tab from '../components/Tab';
 
 import styles from './Styles';
@@ -13,6 +12,7 @@ import { useFocusEffect } from '@react-navigation/native';
 
 const HistoryApp = ({ navigation, active, setActive }: HistoryAppProps) => {
   const [history, setHistory] = useState([]);
+  const [selectedHistory, setSelectedHistory] = useState(null);
 
   // useFocusEffect is a hook provided by @react-navigation/native that
   // runs the provided callback whenever the screen comes into focus
@@ -31,6 +31,11 @@ const HistoryApp = ({ navigation, active, setActive }: HistoryAppProps) => {
     setHistory([]);
   };
 
+  const handleSelectHistory = (calculation) => {
+    setSelectedHistory(calculation);
+    navigation.navigate('AlternativeApp', { selectedHistory: calculation });
+  };
+
   return (
     <View style={styles.container}>
       <Row>
@@ -42,7 +47,9 @@ const HistoryApp = ({ navigation, active, setActive }: HistoryAppProps) => {
       <View style={styles.displayContainer}>
         <ScrollView>
           {history.map((calculation, index) => (
-            <Text key={index} style={{fontSize: 32, color: 'white', borderWidth: 1, borderTopColor: 'gray', borderLeftColor: '#161A20', borderRightColor: '#161A20', borderBottomColor: '#161A20'}}>{calculation}</Text>
+            <TouchableOpacity key={index} onPress={() => handleSelectHistory(calculation)}>
+              <Text key={index} style={{fontSize: 32, color: 'white', borderWidth: 1, borderTopColor: 'gray', borderLeftColor: '#161A20', borderRightColor: '#161A20', borderBottomColor: '#161A20'}}>{calculation}</Text>
+            </TouchableOpacity>
           ))}
         </ScrollView>
       </View>

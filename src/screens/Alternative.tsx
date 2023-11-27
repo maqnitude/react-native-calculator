@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, TextInput, View, Button } from 'react-native';
 import Row from '../components/Row';
 import { AlternativeAppProps } from './Types';
@@ -6,9 +6,17 @@ import styles from './Styles';
 import Tab from '../components/Tab';
 import { updateHistory } from '../storage';
 
-const AlternativeApp = ({ navigation, active, setActive }: AlternativeAppProps) => {
+const AlternativeApp = ({ navigation, route, active, setActive }: AlternativeAppProps) => {
   const [text, setText] = useState('');
   const [result, setResult] = useState('');
+
+  useEffect(() => {
+    if (route.params?.selectedHistory) {
+      let [calc, res] = route.params.selectedHistory.split(' = ');
+      setText(calc);
+      setResult(res);
+    }
+  }, [route.params?.selectedHistory]);
 
   const handleSubmitButton = () => {
     try {
