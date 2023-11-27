@@ -12,7 +12,9 @@ const AlternativeApp = ({ navigation, route, active, setActive }: AlternativeApp
 
   useEffect(() => {
     if (route.params?.selectedHistory) {
-      setText(route.params.selectedHistory)
+      let [calc, res] = route.params.selectedHistory.split(' = ');
+      setText(calc);
+      setResult(res);
     }
   }, [route.params?.selectedHistory]);
 
