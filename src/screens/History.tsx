@@ -1,27 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, Text, TouchableOpacity, View, Button } from 'react-native';
 
 import { getData, clearData } from '../storage';
 
 import Row from '../components/Row';
-import Button from '../components/Button';
 import Tab from '../components/Tab';
 
 import styles from './Styles';
 import { HistoryAppProps } from './Types';
+import { useFocusEffect } from '@react-navigation/native';
 
 const HistoryApp = ({ navigation, active, setActive }: HistoryAppProps) => {
   const [history, setHistory] = useState([]);
   const [selectedHistory, setSelectedHistory] = useState(null);
 
-  useEffect(() => {
-    const fetchHistory = async () => {
-      const history = await getData();
-      setHistory(history);
-    };
-
-    fetchHistory();
-  }, []);
+  // useFocusEffect is a hook provided by @react-navigation/native that
+  // runs the provided callback whenever the screen comes into focus
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchHistory = async () => {
+        const history = await getData();
+        setHistory(history);
+      };
+      fetchHistory();
+    }, [])
+  );
 
   const handleClearHistory = async () => {
     await clearData();
@@ -42,14 +45,16 @@ const HistoryApp = ({ navigation, active, setActive }: HistoryAppProps) => {
         <Tab type="right" text="History" color={active} onPress={() => {navigation.navigate('HistoryApp'); setActive(isActive => isActive ? isActive : !isActive);}} />
       </Row>
       <View style={styles.displayContainer}>
-        {history.map((calculation, index) => (
-          <TouchableOpacity key={index} onPress={() => handleSelectHistory(calculation)}>
-            <Text key={index} style={{fontSize: 24, color: 'white'}}>{calculation}</Text>
-          </TouchableOpacity>
-        ))}
+        <ScrollView>
+          {history.map((calculation, index) => (
+            <TouchableOpacity key={index} onPress={() => handleSelectHistory(calculation)}>
+              <Text key={index} style={{fontSize: 32, color: 'white', borderWidth: 1, borderTopColor: 'gray', borderLeftColor: '#161A20', borderRightColor: '#161A20', borderBottomColor: '#161A20'}}>{calculation}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       </View>
       <Row>
-        <Button text="Clear" onPress={handleClearHistory} />
+        <Button title="Clear" onPress={handleClearHistory} />
       </Row>
     </View>
   );
