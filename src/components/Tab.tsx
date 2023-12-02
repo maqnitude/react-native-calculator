@@ -1,15 +1,17 @@
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
-import styles from './TabStyles';
+import { generateStyles } from './TabStyles';
 
 interface TabProps {
   text: string;
   onPress: () => void;
   type?: string;
   color: boolean;
+  dimensions: { width: number; height: number };
 }
 
-const Tab: React.FC<TabProps> = ({ text, onPress, type, color }) => {
+const Tab: React.FC<TabProps> = ({ text, onPress, type, color, dimensions }) => {
+  const styles = generateStyles(dimensions.width, dimensions.height);
   const tabStyles = [styles.tab];
   switch (type) {
     case 'left':
