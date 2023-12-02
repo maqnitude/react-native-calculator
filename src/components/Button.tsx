@@ -1,15 +1,17 @@
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
-import styles from './ButtonStyles';
+import { generateStyles } from './ButtonStyles';
 
 interface ButtonProps {
   text: string;
   onPress: () => void;
   size?: string;
   theme?: string;
+  dimensions: { width: number; height: number };
 }
 
-const Button: React.FC<ButtonProps> = ({ text, onPress, size, theme }) => {
+const Button: React.FC<ButtonProps> = ({ text, onPress, size, theme, dimensions }) => {
+  const styles = generateStyles(dimensions.width, dimensions.height);
   const buttonStyles = [styles.button];
   if (size === 'double') {
     buttonStyles.push(styles.buttonDouble);

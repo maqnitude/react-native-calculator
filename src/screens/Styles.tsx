@@ -1,42 +1,44 @@
 import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#161A20',
-  },
+export const generateStyles = (width: number, height: number) => {
+  const isLandscape = width > height;
 
-  displayContainer: {
-    flex: 3,
-    justifyContent: 'flex-end',
-  },
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      flexDirection: 'column',
+      backgroundColor: '#161A20',
+    },
 
-  semiDisplayContainer: {
-    flex: 1,
-    backgroundColor: '#20252E',
-    justifyContent: 'center',
-  },
+    displayContainer: {
+      flex: 3,
+      justifyContent: 'flex-end',
+    },
 
-  buttonContainer: {
-    flex: 6,
-    marginBottom: '5%',
-  },
+    semiDisplayContainer: {
+      flex: 1,
+      backgroundColor: '#20252E',
+      justifyContent: 'center',
+    },
 
-  value: {
-    color: '#fff',
-    fontSize: 94,
-    textAlign: 'right',
-  },
+    buttonContainer: {
+      flex: 6,
+      marginBottom: '5%',
+    },
 
-  subContent: {
-    textAlign: 'right',
-    color: '#CBE1FF',
-    fontSize: 28,
-    fontWeight: '300',
-    padding: 20,
-  },
-});
+    value: {
+      color: '#fff',
+      fontSize: isLandscape ? 30 : 94,
+      textAlign: 'right',
+      marginRight: 10,
+    },
 
-
-export default styles;
+    subContent: {
+      textAlign: 'right',
+      color: '#CBE1FF',
+      fontSize: isLandscape ? 10 : 28,
+      fontWeight: '300',
+      marginRight: 10,
+    },
+  });
+};
